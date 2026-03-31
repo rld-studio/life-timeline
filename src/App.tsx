@@ -23,6 +23,7 @@ export default function App() {
   const rightCanvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef             = useRef(0)
   const hasAutoScrolled    = useRef(false)
+  const drawAllRef         = useRef<(ts: number) => void>(() => {})
 
   const today       = useMemo(() => new Date(), [])
   const currentYear = today.getFullYear()
@@ -86,18 +87,25 @@ export default function App() {
     [containerH, expandedYear, rightYears]
   )
 
-  const drawAll = useCallback(() => {
+  const drawAll = useCallback((ts: number) => {
     if (leftCanvasRef.current)
-      drawGrid(leftCanvasRef.current, leftLayout, dayMap, today, expandedYear)
+      drawGrid(leftCanvasRef.current, leftLayout, dayMap, today, expandedYear, ts)
     if (rightCanvasRef.current && rightLayout)
-      drawGrid(rightCanvasRef.current, rightLayout, dayMap, today, null)
+      drawGrid(rightCanvasRef.current, rightLayout, dayMap, today, null, ts)
   }, [leftLayout, rightLayout, dayMap, today, expandedYear])
 
+  // Keep ref current so the RAF loop always calls the latest drawAll
+  useEffect(() => { drawAllRef.current = drawAll }, [drawAll])
+
+  // Start the continuous animation loop once
   useEffect(() => {
-    cancelAnimationFrame(rafRef.current)
-    rafRef.current = requestAnimationFrame(drawAll)
+    function loop(ts: number) {
+      drawAllRef.current(ts)
+      rafRef.current = requestAnimationFrame(loop)
+    }
+    rafRef.current = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(rafRef.current)
-  }, [drawAll])
+  }, [])
 
   useEffect(() => {
     if (!events.length || hasAutoScrolled.current) return

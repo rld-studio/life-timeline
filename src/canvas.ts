@@ -2,6 +2,39 @@ import { EventItem } from './types'
 import { fmtISO, dayOfYear } from './dates'
 import { pickDayColor } from './dayMap'
 
+// ── Sparkle animation helpers ─────────────────────────────────────────────────
+
+function parseHex(hex: string): [number, number, number] {
+  const h = hex.replace('#', '')
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]
+}
+
+function lerpHex(a: string, b: string, t: number, alpha = 1): string {
+  const [ar, ag, ab] = parseHex(a)
+  const [br, bg, bb] = parseHex(b)
+  const r  = Math.round(ar + (br - ar) * t)
+  const g  = Math.round(ag + (bg - ag) * t)
+  const bl = Math.round(ab + (bb - ab) * t)
+  return alpha < 1 ? `rgba(${r},${g},${bl},${alpha})` : `rgb(${r},${g},${bl})`
+}
+
+const HOLD_MS = 800
+const FADE_MS = 300
+const SLOT_MS = HOLD_MS + FADE_MS
+
+export function sparkleColor(colors: string[], doy: number, year: number, ts: number, alpha = 1): string {
+  const n = colors.length
+  const cycleDuration = n * SLOT_MS
+  // Golden-ratio-based offset so each day animates independently
+  const offset = ((year * 366 + doy) * 137508) % cycleDuration
+  const t = (ts + offset) % cycleDuration
+  const slot = Math.floor(t / SLOT_MS) % n
+  const tInSlot = t % SLOT_MS
+  const next = (slot + 1) % n
+  const fade = tInSlot < HOLD_MS ? 0 : (tInSlot - HOLD_MS) / FADE_MS
+  return lerpHex(colors[slot], colors[next], fade, alpha)
+}
+
 // ── Layout constants ──────────────────────────────────────────────────────────
 export const GUTTER     = 1   // CSS px gap between year columns
 export const PAD_TOP    = 34  // px above grid for decade labels
@@ -52,6 +85,7 @@ export function drawGrid(
   dayMap: Map<string, EventItem[]>,
   today: Date,
   highlightYear: number | null,
+  ts = 0,
 ): void {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
@@ -96,9 +130,11 @@ export function drawGrid(
       const evts = dayMap.get(iso)
       let color  = baseColor
 
-      if (evts && evts.length > 0) {
+      if (evts && evts.length > 1) {
+        const colors = evts.map(e => e.color)
+        color = sparkleColor(colors, d, year, ts, isFuture ? 0.67 : 1)
+      } else if (evts && evts.length === 1) {
         const raw = pickDayColor(evts, d, baseColor)
-        // Dim future event colours slightly
         color = isFuture ? raw + 'aa' : raw
       }
 

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { EventItem } from './types'
 import { daysInMonth, fmtISO, MONTHS } from './dates'
 import { pickDayColor } from './dayMap'
+import { sparkleColor } from './canvas'
 
 interface Props {
   year: number
@@ -13,6 +14,14 @@ interface Props {
 
 export function YearColumn({ year, selectedISO, dayMap, onSelectDay, height }: Props) {
   const selectedRef = useRef<HTMLButtonElement | null>(null)
+  const rafRef      = useRef(0)
+  const [ts, setTs] = useState(0)
+
+  useEffect(() => {
+    function loop(t: number) { setTs(t); rafRef.current = requestAnimationFrame(loop) }
+    rafRef.current = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [])
 
   useEffect(() => {
     selectedRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
@@ -40,7 +49,9 @@ export function YearColumn({ year, selectedISO, dayMap, onSelectDay, height }: P
               const isSelected  = iso === selectedISO
               const hasEvents   = evts.length > 0
               const hasMultiple = evts.length > 1
-              const color       = hasEvents ? pickDayColor(evts, doy, '#2a2a2e') : ''
+              const color       = hasMultiple
+                ? sparkleColor(evts.map(e => e.color), doy, year, ts)
+                : hasEvents ? pickDayColor(evts, doy, '#2a2a2e') : ''
 
               return (
                 <button

@@ -170,7 +170,7 @@
     "id": "evt-2000-10-21-wedding",
     "title": "Randy & Patricia Wedding Day",
     "start_date": "2000-10-21",
-    "end_date": "2000-10-23",
+    "end_date": "2000-10-21",
     "category": "family",
     "color": "#ff69b4",
     "location": "Fort Belvoir, MD",
@@ -355,5 +355,27 @@
       }
     ],
     "cover_image": "/images/evt-2026-04-10-artfields-messy-mind/cover.jpg"
+  },
+  {
+    "id": "evt-1996-08-08-1774987175657",
+    "title": "CNN",
+    "start_date": "1996-08-08",
+    "end_date": "1998-10-02",
+    "category": "career",
+    "color": "#f59e0b",
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Chris Martin and I both hired as Advanced Multi-Media Designers (Broadcast Designers) at CNN. First day Mary Hilpertshauser had me type in squeezeback updates for the news updates on the half hour during the OJ Trial. Later I worked on Larry King Live, Moneyline, overnight news and mostly the CNN Sports programs. We won a Cable Ace Award while I was the only designer working on CNN Sports Tonight, beating ESPN Sportscenter for the first time in 11 years."
+      }
+    ],
+    "location": "Atlanta",
+    "cover_image": "/images/evt-1996-08-08-1774987175657/cover.png",
+    "tags": [
+      "television",
+      "design",
+      "Cable Ace Award",
+      "awards"
+    ]
   }
 ]
