@@ -14,7 +14,7 @@ import { loadEvents, saveEvents } from './imageApi'
 
 const YEAR_COL_W   = 52
 const DETAIL_W     = 560
-const TOTAL_YEARS  = 120
+const START_YEAR   = 1800
 
 export default function App() {
   const containerRef   = useRef<HTMLDivElement>(null)
@@ -64,7 +64,8 @@ export default function App() {
 
   useEffect(() => { setSelectedISO(null) }, [expandedYear])
 
-  const startYear = currentYear - 50
+  const startYear   = START_YEAR
+  const totalYears  = currentYear - START_YEAR + 50
   const [containerH, setContainerH] = useState(800)
 
   useEffect(() => {
@@ -75,8 +76,8 @@ export default function App() {
     return () => ro.disconnect()
   }, [])
 
-  const leftYears  = expandedYear !== null ? expandedYear - startYear + 1 : TOTAL_YEARS
-  const rightYears = expandedYear !== null ? TOTAL_YEARS - leftYears : 0
+  const leftYears  = expandedYear !== null ? expandedYear - startYear + 1 : totalYears
+  const rightYears = expandedYear !== null ? totalYears - leftYears : 0
 
   const leftLayout  = useMemo(() => computeLayout(containerH, startYear, leftYears), [containerH, startYear, leftYears])
   const rightLayout = useMemo(

@@ -9,8 +9,17 @@
     "category": "family",
     "color": "#22c55e",
     "location": "Cowarts, AL",
-    "tags": ["birthday", "grandfather", "paternal"],
-    "artifacts": [{"type": "text", "content": "Randy's paternal grandfather (Pa). Exact birth day uncertain — always celebrated on the same day as Randy's dad's birthday."}]
+    "tags": [
+      "birthday",
+      "grandfather",
+      "paternal"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Randy's paternal grandfather (Pa). Exact birth day uncertain — always celebrated on the same day as Randy's dad's birthday."
+      }
+    ]
   },
   {
     "id": "evt-1924-03-27-gladys-bday",
@@ -20,8 +29,17 @@
     "category": "family",
     "color": "#22c55e",
     "location": "Alabama (birthplace TBD)",
-    "tags": ["birthday", "grandmother", "paternal"],
-    "artifacts": [{"type": "text", "content": "Randy's paternal grandmother (Granny Dickerson). Birthplace to confirm."}]
+    "tags": [
+      "birthday",
+      "grandmother",
+      "paternal"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Randy's paternal grandmother (Granny Dickerson). Birthplace to confirm."
+      }
+    ]
   },
   {
     "id": "evt-1944-06-03-mom-bday",
@@ -31,8 +49,16 @@
     "category": "family",
     "color": "#22c55e",
     "location": "Slocumb, AL",
-    "tags": ["birthday", "mom"],
-    "artifacts": [{"type": "text", "content": "Randy's mom's birthday."}]
+    "tags": [
+      "birthday",
+      "mom"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Randy's mom's birthday."
+      }
+    ]
   },
   {
     "id": "evt-1944-12-05-dad-bday",
@@ -42,8 +68,16 @@
     "category": "family",
     "color": "#22c55e",
     "location": "Cowarts, AL",
-    "tags": ["birthday", "dad"],
-    "artifacts": [{"type": "text", "content": "Randy's dad's birthday."}]
+    "tags": [
+      "birthday",
+      "dad"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Randy's dad's birthday."
+      }
+    ]
   },
   {
     "id": "evt-1971-03-17-tricia-bday",
@@ -53,8 +87,16 @@
     "category": "family",
     "color": "#ff69b4",
     "location": "Fort Sill, OK",
-    "tags": ["birthday", "tricia"],
-    "artifacts": [{"type": "text", "content": "Born."}]
+    "tags": [
+      "birthday",
+      "tricia"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Born."
+      }
+    ]
   },
   {
     "id": "evt-1971-08-21-randy-bday",
@@ -64,8 +106,17 @@
     "category": "family",
     "color": "#22c55e",
     "location": "Dothan, AL",
-    "tags": ["birthday", "randy"],
-    "artifacts": [{"type": "text", "content": "Born."}]
+    "tags": [
+      "birthday",
+      "randy"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Born."
+      }
+    ],
+    "cover_image": "/images/evt-1971-08-21-randy-bday/cover.jpg"
   },
   {
     "id": "evt-1989-08-01-gc-wallace",
@@ -75,7 +126,10 @@
     "category": "education",
     "color": "#a855f7",
     "location": "Dothan, AL",
-    "tags": ["school", "education"],
+    "tags": [
+      "school",
+      "education"
+    ],
     "artifacts": []
   },
   {
@@ -86,7 +140,11 @@
     "category": "education",
     "color": "#a855f7",
     "location": "Tuscaloosa, AL",
-    "tags": ["school", "education", "alabama"],
+    "tags": [
+      "school",
+      "education",
+      "alabama"
+    ],
     "artifacts": []
   },
   {
@@ -97,8 +155,16 @@
     "category": "family",
     "color": "#ff69b4",
     "location": "Tuscaloosa, AL",
-    "tags": ["milestone", "relationship"],
-    "artifacts": [{"type": "text", "content": "Met my wife."}]
+    "tags": [
+      "milestone",
+      "relationship"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Met my wife."
+      }
+    ]
   },
   {
     "id": "evt-2000-10-21-wedding",
@@ -108,8 +174,16 @@
     "category": "family",
     "color": "#ff69b4",
     "location": "Fort Belvoir, MD",
-    "tags": ["wedding", "milestone"],
-    "artifacts": [{"type": "text", "content": "Married at 10:00 AM."}]
+    "tags": [
+      "wedding",
+      "milestone"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Married at 10:00 AM."
+      }
+    ]
   },
   {
     "id": "evt-2000-10-21-italy-honeymoon",
@@ -121,8 +195,16 @@
     "category": "travel",
     "color": "#06b6d4",
     "location": "Italy",
-    "tags": ["trip", "honeymoon"],
-    "artifacts": [{"type": "text", "content": "Lots of photos and stories to add. Return date approximate — trip was roughly 14–17 days."}]
+    "tags": [
+      "trip",
+      "honeymoon"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Lots of photos and stories to add. Return date approximate — trip was roughly 14–17 days."
+      }
+    ]
   },
   {
     "id": "evt-2001-08-17-china-trip",
@@ -134,8 +216,37 @@
     "category": "travel",
     "color": "#06b6d4",
     "location": "Beijing, Kangding, Chengdu, China",
-    "tags": ["trip", "travel"],
-    "artifacts": [{"type": "text", "content": "Backpacking trip with Bonnie, Larry, Gillian, and James. Was there for my birthday. Back the week before 9/11. Both dates approximate."}]
+    "tags": [
+      "trip",
+      "travel"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Backpacking trip with Bonnie, Larry, Gillian, and James. Was there for my birthday. Back the week before 9/11. Both dates approximate."
+      },
+      {
+        "type": "image",
+        "url": "/images/evt-2001-08-17-china-trip/img-1.png",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "url": "/images/evt-2001-08-17-china-trip/img-2.png",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "url": "/images/evt-2001-08-17-china-trip/img-3.png",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "url": "/images/evt-2001-08-17-china-trip/img-4.png",
+        "caption": ""
+      }
+    ],
+    "cover_image": "/images/evt-2001-08-17-china-trip/cover.png"
   },
   {
     "id": "evt-2006-02-15-coley-death",
@@ -145,8 +256,17 @@
     "category": "family",
     "color": "#94a3b8",
     "location": "Cowarts, AL",
-    "tags": ["death", "grandfather", "paternal"],
-    "artifacts": [{"type": "text", "content": "Notes to come."}]
+    "tags": [
+      "death",
+      "grandfather",
+      "paternal"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Notes to come."
+      }
+    ]
   },
   {
     "id": "evt-2007-03-12-pearl-bday",
@@ -156,7 +276,10 @@
     "category": "family",
     "color": "#22c55e",
     "location": "Atlanta, GA (Emory Hospital Midtown)",
-    "tags": ["birthday", "pearl"],
+    "tags": [
+      "birthday",
+      "pearl"
+    ],
     "artifacts": []
   },
   {
@@ -167,7 +290,10 @@
     "category": "family",
     "color": "#22c55e",
     "location": "Atlanta, GA (Emory Hospital Midtown)",
-    "tags": ["birthday", "forrest"],
+    "tags": [
+      "birthday",
+      "forrest"
+    ],
     "artifacts": []
   },
   {
@@ -178,8 +304,17 @@
     "category": "sports",
     "color": "#3b82f6",
     "location": "Atlanta, GA",
-    "tags": ["alabama", "cfp", "championship"],
-    "artifacts": [{"type": "text", "content": "Witnessed 2nd and 26 — Tua to DeVonta Smith for a walk-off TD in OT. Turner suite, 50 yard line. Ticket gifted by Matt Hong (originally for Harold Raines). Attended with Matt and PR head Nate Smeltz. Trump had worse seats. Houston Nutt was in the next suite, leaning on the rail cursing under his breath watching Saban lift the trophy on the jumbotron. Stood behind Tim Tebow in the security line."}]
+    "tags": [
+      "alabama",
+      "cfp",
+      "championship"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Witnessed 2nd and 26 — Tua to DeVonta Smith for a walk-off TD in OT. Turner suite, 50 yard line. Ticket gifted by Matt Hong (originally for Harold Raines). Attended with Matt and PR head Nate Smeltz. Trump had worse seats. Houston Nutt was in the next suite, leaning on the rail cursing under his breath watching Saban lift the trophy on the jumbotron. Stood behind Tim Tebow in the security line."
+      }
+    ]
   },
   {
     "id": "evt-2025-04-25-artfields-source",
@@ -189,8 +324,17 @@
     "category": "art",
     "color": "#f59e0b",
     "location": "Lake City, SC",
-    "tags": ["exhibit", "artfields", "the source"],
-    "artifacts": [{"type": "text", "content": "Accepted into ArtFields for the first time."}]
+    "tags": [
+      "exhibit",
+      "artfields",
+      "the source"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Accepted into ArtFields for the first time."
+      }
+    ]
   },
   {
     "id": "evt-2026-04-10-artfields-messy-mind",
@@ -200,7 +344,16 @@
     "category": "art",
     "color": "#f59e0b",
     "location": "Lake City, SC",
-    "tags": ["exhibit", "artfields"],
-    "artifacts": [{"type": "text", "content": "Second year accepted into ArtFields."}]
+    "tags": [
+      "exhibit",
+      "artfields"
+    ],
+    "artifacts": [
+      {
+        "type": "text",
+        "content": "Second year accepted into ArtFields."
+      }
+    ],
+    "cover_image": "/images/evt-2026-04-10-artfields-messy-mind/cover.jpg"
   }
 ]

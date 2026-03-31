@@ -1,21 +1,39 @@
-// imageApi.ts
-export async function uploadImage(
-  file: File,
-  _eventId: string,
-  _role: 'cover' | 'gallery',
-): Promise<{ url: string; filename: string }> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => resolve({ url: reader.result as string, filename: file.name })
-    reader.onerror = () => reject(new Error('Failed to read file'))
-    reader.readAsDataURL(file)
-  })
+export async function uploadImage(file: File, eventId: string, role: string): Promise<{url: string; filename: string}> {
+  const form = new FormData()
+  form.append('eventId', eventId)
+  form.append('role', role)
+  form.append('file', file)
+  const res = await fetch('/_img/upload', { method: 'POST', body: form })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }))
+    throw new Error(err.error ?? 'Upload failed')
+  }
+  return res.json()
 }
 
-export async function deleteImage(_url: string): Promise<void> {}
+export async function deleteImage(url: string): Promise<void> {
+  const res = await fetch('/_img/delete', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }))
+    throw new Error(err.error ?? 'Delete failed')
+  }
+}
 
 export async function saveEvents(events: object[]): Promise<void> {
   localStorage.setItem('life-timeline-events', JSON.stringify(events))
+  try {
+    await fetch('/_events/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(events),
+    })
+  } catch (e) {
+    console.warn('localStorage only:', e)
+  }
 }
 
 export async function loadEvents(): Promise<object[] | null> {
