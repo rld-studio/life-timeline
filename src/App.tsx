@@ -5,7 +5,7 @@ import { EventItem } from './types'
 import { buildDayMap } from './dayMap'
 import {
   computeLayout, drawGrid, hitYear, hitDay,
-  GridLayout, YEAR_W, PAD_LEFT, CELL,
+  GridLayout, PAD_LEFT,
 } from './canvas'
 import { YearColumn } from './YearColumn'
 import { DetailPanel } from './DetailPanel'
@@ -21,7 +21,8 @@ export default function App() {
   const scrollerRef    = useRef<HTMLDivElement>(null)
   const leftCanvasRef  = useRef<HTMLCanvasElement>(null)
   const rightCanvasRef = useRef<HTMLCanvasElement>(null)
-  const rafRef         = useRef(0)
+  const rafRef             = useRef(0)
+  const hasAutoScrolled    = useRef(false)
 
   const today       = useMemo(() => new Date(), [])
   const currentYear = today.getFullYear()
@@ -66,10 +67,10 @@ export default function App() {
 
   const startYear   = START_YEAR
   const totalYears  = currentYear - START_YEAR + 50
-  const [containerH, setContainerH] = useState(800)
+  const [containerH, setContainerH] = useState(() => window.innerHeight)
 
   useEffect(() => {
-    const el = containerRef.current
+    const el = scrollerRef.current
     if (!el) return
     const ro = new ResizeObserver(([e]) => setContainerH(e.contentRect.height))
     ro.observe(el)
@@ -99,13 +100,15 @@ export default function App() {
   }, [drawAll])
 
   useEffect(() => {
-    if (!events.length) return
+    if (!events.length || hasAutoScrolled.current) return
     const scroller = scrollerRef.current
     if (!scroller) return
+    const { yearW, padLeft } = leftLayout
     const todayYi = currentYear - startYear
-    const todayX  = PAD_LEFT + todayYi * YEAR_W + YEAR_W / 2
+    const todayX  = padLeft + todayYi * yearW + yearW / 2
     scroller.scrollLeft = todayX - scroller.clientWidth / 2
-  }, [events.length, currentYear, startYear])
+    hasAutoScrolled.current = true
+  }, [events.length, leftLayout, currentYear, startYear])
 
   useEffect(() => {
     const el = scrollerRef.current
@@ -141,7 +144,7 @@ export default function App() {
     <div className="app-root" ref={containerRef}>
       {loadError && <div className="load-error">⚠ {loadError}</div>}
       <div className="timeline-scroller" ref={scrollerRef}>
-        <div className="timeline-row">
+        <div className="timeline-row" style={{ height: containerH }}>
           <canvas ref={leftCanvasRef} className="grid-canvas"
             style={{ width: leftLayout.totalW, height: containerH }} onClick={handleLeftClick} />
 

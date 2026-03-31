@@ -3,9 +3,7 @@ import { fmtISO, dayOfYear } from './dates'
 import { pickDayColor } from './dayMap'
 
 // ── Layout constants ──────────────────────────────────────────────────────────
-export const CELL   = 2   // CSS px per day square
-export const GUTTER = 1   // CSS px gap between year columns
-export const YEAR_W = CELL + GUTTER
+export const GUTTER     = 1   // CSS px gap between year columns
 export const PAD_TOP    = 34  // px above grid for decade labels
 export const PAD_BOTTOM = 6
 export const PAD_LEFT   = 12
@@ -16,6 +14,7 @@ export interface GridLayout {
   cell: number
   yearW: number
   padTop: number
+  padBottom: number
   padLeft: number
   totalW: number   // CSS px
   totalH: number   // CSS px
@@ -23,13 +22,18 @@ export interface GridLayout {
 
 /** Compute layout given container height and the year range to display */
 export function computeLayout(containerH: number, startYear: number, totalYears: number): GridLayout {
-  const totalW = PAD_LEFT + totalYears * YEAR_W + PAD_LEFT
+  const cell      = Math.max(2, (containerH - PAD_TOP) / 366)  // float — fills exact height
+  const padTop    = PAD_TOP
+  const padBottom = 0
+  const yearW     = Math.max(8, Math.floor(cell) * 3)
+  const totalW    = PAD_LEFT + totalYears * yearW + PAD_LEFT
   return {
     startYear,
     totalYears,
-    cell: CELL,
-    yearW: YEAR_W,
-    padTop: PAD_TOP,
+    cell,
+    yearW,
+    padTop,
+    padBottom,
     padLeft: PAD_LEFT,
     totalW,
     totalH: containerH,
@@ -53,7 +57,7 @@ export function drawGrid(
   if (!ctx) return
 
   const dpr = window.devicePixelRatio || 1
-  const { totalW, totalH, startYear, totalYears, cell, yearW, padTop, padLeft } = layout
+  const { totalW, totalH, startYear, totalYears, cell, yearW, padTop, padBottom, padLeft } = layout
 
   canvas.width  = Math.floor(totalW * dpr)
   canvas.height = Math.floor(totalH * dpr)
@@ -62,7 +66,7 @@ export function drawGrid(
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
   const currentYear = today.getFullYear()
-  const usableH = totalH - padTop - PAD_BOTTOM
+  const usableH = cell * 366
 
   // Background
   ctx.fillStyle = '#0c0c10'
@@ -86,7 +90,7 @@ export function drawGrid(
       if (date.getFullYear() !== year) break
 
       const yPx = padTop + d * cell
-      if (yPx + cell > totalH - PAD_BOTTOM) break
+      if (yPx + cell > totalH - padBottom) break
 
       const iso  = fmtISO(date)
       const evts = dayMap.get(iso)
@@ -110,9 +114,9 @@ export function drawGrid(
 
       // Subtle vertical guide line
       ctx.fillStyle = 'rgba(255,255,255,0.05)'
-      ctx.fillRect(x, padTop, 1, Math.min(usableH, 366 * cell))
+      ctx.fillRect(x, padTop, 1, usableH)
 
-      // Label
+      // Label above grid
       ctx.fillStyle = labelColor
       ctx.font = `bold 9px "IBM Plex Mono", monospace`
       ctx.textAlign = 'center'

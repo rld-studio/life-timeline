@@ -54,7 +54,6 @@ html, body, #root {
 .timeline-row {
   display: flex;
   align-items: stretch;
-  height: 100vh;
   width: max-content;  /* lets the row grow as wide as it needs */
 }
 
@@ -72,7 +71,7 @@ html, body, #root {
 .expanded-year-wrapper {
   flex: 0 0 52px;
   width: 52px;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: #111116;
@@ -186,7 +185,7 @@ html, body, #root {
 .detail-panel {
   flex: 0 0 560px;
   width: 560px;
-  height: 100vh;
+  height: 100%;
   background: #0e0e14;
   border-right: 1px solid rgba(255,255,255,0.06);
   display: flex;
