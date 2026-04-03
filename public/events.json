@@ -379,57 +379,5 @@
         "awards"
       ]
     }
-  ],
-  "categories": [
-    {
-      "value": "family",
-      "label": "Family",
-      "color": "#22c55e"
-    },
-    {
-      "value": "education",
-      "label": "Education",
-      "color": "#a855f7"
-    },
-    {
-      "value": "career",
-      "label": "Career",
-      "color": "#f59e0b"
-    },
-    {
-      "value": "travel",
-      "label": "Travel",
-      "color": "#06b6d4"
-    },
-    {
-      "value": "health",
-      "label": "Health",
-      "color": "#ef4444"
-    },
-    {
-      "value": "sports",
-      "label": "Sports",
-      "color": "#3b82f6"
-    },
-    {
-      "value": "art",
-      "label": "Art",
-      "color": "#e879f9"
-    },
-    {
-      "value": "personal",
-      "label": "Personal",
-      "color": "#ec4899"
-    },
-    {
-      "value": "milestone",
-      "label": "Milestone",
-      "color": "#00dcdc"
-    },
-    {
-      "value": "faith",
-      "label": "Faith",
-      "color": "#fbbf24"
-    }
   ]
 }

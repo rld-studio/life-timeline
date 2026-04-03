@@ -1020,3 +1020,37 @@ html, body, #root {
   border-radius: 50%;
   flex: 0 0 7px;
 }
+
+.filter-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 4px 0;
+}
+
+.filter-section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.3);
+  padding: 0 1px;
+}
+
+.filter-year-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  color: rgba(255,255,255,0.78);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  padding: 4px 8px;
+  -moz-appearance: textfield;
+}
+.filter-year-input::-webkit-inner-spin-button,
+.filter-year-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.filter-year-input::placeholder { color: rgba(255,255,255,0.25); }
+.filter-year-input:focus {
+  outline: none;
+  border-color: rgba(0,220,220,0.45);
+}

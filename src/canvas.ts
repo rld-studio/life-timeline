@@ -85,11 +85,12 @@ export function drawGrid(
   dayMap: Map<string, EventItem[]>,
   today: Date,
   highlightYear: number | null,
-  ts = 0,
+  _ts = 0,
   activeCategories: Set<string> | null = null,
 ): void {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
+  const now = Date.now()
 
   const dpr = window.devicePixelRatio || 1
   const { totalW, totalH, startYear, totalYears, cell, yearW, padTop, padBottom, padLeft } = layout
@@ -136,7 +137,7 @@ export function drawGrid(
 
       if (evts && evts.length > 1) {
         const colors = evts.map(e => e.color)
-        color = sparkleColor(colors, d, year, ts, isFuture ? 0.67 : 1)
+        color = sparkleColor(colors, d, year, now, isFuture ? 0.67 : 1)
       } else if (evts && evts.length === 1) {
         const raw = pickDayColor(evts, d, baseColor)
         color = isFuture ? raw + 'aa' : raw

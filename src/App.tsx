@@ -129,6 +129,17 @@ export default function App() {
     hasAutoScrolled.current = true
   }, [events.length, leftLayout, currentYear, startYear])
 
+  const handleJumpToYear = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter') return
+    const yr = parseInt((e.target as HTMLInputElement).value)
+    if (isNaN(yr)) return
+    const scroller = scrollerRef.current
+    if (!scroller) return
+    const yearIdx = yr - startYear
+    const x = PAD_LEFT + yearIdx * leftLayout.yearW + leftLayout.yearW / 2
+    scroller.scrollLeft = x - scroller.clientWidth / 2
+  }, [startYear, leftLayout])
+
   useEffect(() => {
     const el = scrollerRef.current
     if (!el) return
@@ -187,6 +198,7 @@ export default function App() {
         >⊞</button>
         {filterOpen && (
           <div className="filter-dropdown">
+            <div className="filter-section-label">CATEGORIES</div>
             {categories.map(cat => {
               const active = activeCategories.has(cat.value)
               return (
@@ -200,6 +212,14 @@ export default function App() {
                 </button>
               )
             })}
+            <div className="filter-divider" />
+            <div className="filter-section-label">JUMP TO YEAR</div>
+            <input
+              className="filter-year-input filter-year-input--full"
+              type="number"
+              placeholder="e.g. 1985"
+              onKeyDown={handleJumpToYear}
+            />
           </div>
         )}
       </div>
