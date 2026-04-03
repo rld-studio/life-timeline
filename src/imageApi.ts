@@ -23,20 +23,27 @@ export async function deleteImage(url: string): Promise<void> {
   }
 }
 
-export async function saveEvents(events: object[]): Promise<void> {
-  localStorage.setItem('life-timeline-events', JSON.stringify(events))
+const LS_KEY = 'life-timeline-data'
+
+export async function saveEvents(events: object[], categories: object[]): Promise<void> {
+  const data = { events, categories }
+  localStorage.setItem(LS_KEY, JSON.stringify(data))
   try {
     await fetch('/_events/save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(events),
+      body: JSON.stringify(data),
     })
   } catch (e) {
     console.warn('localStorage only:', e)
   }
 }
 
-export async function loadEvents(): Promise<object[] | null> {
-  const raw = localStorage.getItem('life-timeline-events')
-  return raw ? JSON.parse(raw) : null
+export async function loadEvents(): Promise<{ events: object[]; categories: object[] } | null> {
+  const raw = localStorage.getItem(LS_KEY) ?? localStorage.getItem('life-timeline-events')
+  if (!raw) return null
+  const parsed = JSON.parse(raw)
+  // Handle legacy format (plain array)
+  if (Array.isArray(parsed)) return { events: parsed, categories: [] }
+  return parsed
 }

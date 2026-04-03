@@ -2,6 +2,7 @@ import React, {
   useCallback, useEffect, useMemo, useRef, useState,
 } from 'react'
 import { EventItem } from './types'
+import { DEFAULT_CATEGORIES, Category } from './categories'
 import { buildDayMap } from './dayMap'
 import {
   computeLayout, drawGrid, hitYear, hitDay,
@@ -28,30 +29,39 @@ export default function App() {
   const today       = useMemo(() => new Date(), [])
   const currentYear = today.getFullYear()
 
-  const [events,    setEvents]    = useState<EventItem[]>([])
-  const [loadError, setLoadError] = useState<string | null>(null)
+  const [events,     setEvents]     = useState<EventItem[]>([])
+  const [categories, setCategories] = useState<Category[]>(DEFAULT_CATEGORIES)
+  const [loadError,  setLoadError]  = useState<string | null>(null)
 
   const dayMap = useMemo(() => buildDayMap(events), [events])
 
+  const applyColors = (evts: EventItem[], cats: Category[]): EventItem[] =>
+    evts.map(e => {
+      const cat = cats.find(c => c.value === e.category)
+      return cat ? { ...e, color: cat.color } : e
+    })
+
   // Load events: prefer localStorage (has edits), fall back to events.json
   useEffect(() => {
-    loadEvents().then(saved => {
-      if (saved && saved.length > 0) {
-        setEvents(saved as EventItem[])
+    loadEvents().then(result => {
+      if (result && result.events.length > 0) {
+        const cats = result.categories.length > 0 ? result.categories as Category[] : DEFAULT_CATEGORIES
+        if (result.categories.length > 0) setCategories(cats)
+        setEvents(applyColors(result.events as EventItem[], cats))
         return
       }
-      fetch('/events.json', { cache: 'no-store' })
+      fetch('/events.json?t=' + Date.now(), { cache: 'no-store' })
         .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json() })
         .then((d: EventItem[]) => {
-          const arr = Array.isArray(d) ? d : []
+          const arr = applyColors(Array.isArray(d) ? d : [], DEFAULT_CATEGORIES)
           setEvents(arr)
-          saveEvents(arr) // seed localStorage
+          saveEvents(arr, DEFAULT_CATEGORIES) // seed localStorage
         })
         .catch(e => setLoadError(String(e)))
     }).catch(() => {
-      fetch('/events.json', { cache: 'no-store' })
+      fetch('/events.json?t=' + Date.now(), { cache: 'no-store' })
         .then(r => r.json())
-        .then((d: EventItem[]) => setEvents(Array.isArray(d) ? d : []))
+        .then((d: EventItem[]) => setEvents(applyColors(Array.isArray(d) ? d : [], DEFAULT_CATEGORIES)))
         .catch(e => setLoadError(String(e)))
     })
   }, [])
@@ -145,6 +155,12 @@ export default function App() {
     if (yr !== null) setExpandedYear(yr)
   }, [rightLayout])
 
+  const handleAddCategory = useCallback((category: Category) => {
+    const next = [...categories, category]
+    setCategories(next)
+    saveEvents(events, next).catch(console.error)
+  }, [categories, events])
+
   const handleSelectDay  = useCallback((iso: string) => setSelectedISO(iso), [])
   const handleClose      = useCallback(() => { setExpandedYear(null); setSelectedISO(null) }, [])
 
@@ -173,6 +189,8 @@ export default function App() {
                 height={containerH}
                 onClose={handleClose}
                 onEventsChange={setEvents}
+                categories={categories}
+                onAddCategory={handleAddCategory}
               />
             </>
           )}
