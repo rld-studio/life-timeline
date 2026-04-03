@@ -42,27 +42,47 @@ export default function App() {
       return cat ? { ...e, color: cat.color } : e
     })
 
+  function parseEventsJson(d: unknown): { evts: EventItem[]; cats: Category[] } {
+    if (Array.isArray(d)) return { evts: d as EventItem[], cats: DEFAULT_CATEGORIES }
+    const obj = d as { events?: unknown; categories?: unknown }
+    const evts = Array.isArray(obj.events) ? obj.events as EventItem[] : []
+    const cats = Array.isArray(obj.categories) && obj.categories.length > 0
+      ? obj.categories as Category[]
+      : DEFAULT_CATEGORIES
+    return { evts, cats }
+  }
+
   // Load events: prefer localStorage (has edits), fall back to events.json
   useEffect(() => {
     loadEvents().then(result => {
       if (result && result.events.length > 0) {
         const cats = result.categories.length > 0 ? result.categories as Category[] : DEFAULT_CATEGORIES
         if (result.categories.length > 0) setCategories(cats)
-        setEvents(applyColors(result.events as EventItem[], cats))
+        const loaded = applyColors(result.events as EventItem[], cats)
+        console.log('[timeline] loaded from localStorage:', loaded.length, 'events')
+        setEvents(loaded)
         return
       }
       fetch('/events.json?t=' + Date.now(), { cache: 'no-store' })
         .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json() })
-        .then((d: EventItem[]) => {
-          const arr = applyColors(Array.isArray(d) ? d : [], DEFAULT_CATEGORIES)
+        .then((d: unknown) => {
+          const { evts, cats } = parseEventsJson(d)
+          console.log('[timeline] loaded from events.json:', evts.length, 'events')
+          const arr = applyColors(evts, cats)
           setEvents(arr)
-          saveEvents(arr, DEFAULT_CATEGORIES) // seed localStorage
+          if (cats !== DEFAULT_CATEGORIES) setCategories(cats)
+          saveEvents(arr, cats) // seed localStorage
         })
         .catch(e => setLoadError(String(e)))
     }).catch(() => {
       fetch('/events.json?t=' + Date.now(), { cache: 'no-store' })
         .then(r => r.json())
-        .then((d: EventItem[]) => setEvents(applyColors(Array.isArray(d) ? d : [], DEFAULT_CATEGORIES)))
+        .then((d: unknown) => {
+          const { evts, cats } = parseEventsJson(d)
+          console.log('[timeline] loaded from events.json (fallback):', evts.length, 'events')
+          setEvents(applyColors(evts, cats))
+          if (cats !== DEFAULT_CATEGORIES) setCategories(cats)
+        })
         .catch(e => setLoadError(String(e)))
     })
   }, [])

@@ -26,6 +26,7 @@ export async function deleteImage(url: string): Promise<void> {
 const LS_KEY = 'life-timeline-data'
 
 export async function saveEvents(events: object[], categories: object[]): Promise<void> {
+  if (!events || events.length === 0) { console.warn('saveEvents: refusing to save empty events array'); return; }
   const data = { events, categories }
   localStorage.setItem(LS_KEY, JSON.stringify(data))
   try {
