@@ -29,9 +29,10 @@ export default function App() {
   const today       = useMemo(() => new Date(), [])
   const currentYear = today.getFullYear()
 
-  const [events,     setEvents]     = useState<EventItem[]>([])
-  const [categories, setCategories] = useState<Category[]>(DEFAULT_CATEGORIES)
-  const [loadError,  setLoadError]  = useState<string | null>(null)
+  const [events,           setEvents]           = useState<EventItem[]>([])
+  const [categories,       setCategories]       = useState<Category[]>(DEFAULT_CATEGORIES)
+  const [activeCategories, setActiveCategories] = useState<Set<string>>(() => new Set(DEFAULT_CATEGORIES.map(c => c.value)))
+  const [loadError,        setLoadError]        = useState<string | null>(null)
 
   const dayMap = useMemo(() => buildDayMap(events), [events])
 
@@ -99,10 +100,10 @@ export default function App() {
 
   const drawAll = useCallback((ts: number) => {
     if (leftCanvasRef.current)
-      drawGrid(leftCanvasRef.current, leftLayout, dayMap, today, expandedYear, ts)
+      drawGrid(leftCanvasRef.current, leftLayout, dayMap, today, expandedYear, ts, activeCategories)
     if (rightCanvasRef.current && rightLayout)
-      drawGrid(rightCanvasRef.current, rightLayout, dayMap, today, null, ts)
-  }, [leftLayout, rightLayout, dayMap, today, expandedYear])
+      drawGrid(rightCanvasRef.current, rightLayout, dayMap, today, null, ts, activeCategories)
+  }, [leftLayout, rightLayout, dayMap, today, expandedYear, activeCategories])
 
   // Keep ref current so the RAF loop always calls the latest drawAll
   useEffect(() => { drawAllRef.current = drawAll }, [drawAll])
@@ -161,12 +162,48 @@ export default function App() {
     saveEvents(events, next).catch(console.error)
   }, [categories, events])
 
+  const handleToggleCategory = useCallback((value: string) => {
+    setActiveCategories(prev => {
+      const next = new Set(prev)
+      next.has(value) ? next.delete(value) : next.add(value)
+      return next
+    })
+  }, [])
+
+  const [filterOpen, setFilterOpen] = useState(false)
+
   const handleSelectDay  = useCallback((iso: string) => setSelectedISO(iso), [])
   const handleClose      = useCallback(() => { setExpandedYear(null); setSelectedISO(null) }, [])
 
   return (
     <div className="app-root" ref={containerRef}>
       {loadError && <div className="load-error">⚠ {loadError}</div>}
+
+      <div className="filter-widget">
+        <button
+          className={`filter-toggle${filterOpen ? ' filter-toggle--open' : ''}`}
+          onClick={() => setFilterOpen(o => !o)}
+          title="Filter categories"
+        >⊞</button>
+        {filterOpen && (
+          <div className="filter-dropdown">
+            {categories.map(cat => {
+              const active = activeCategories.has(cat.value)
+              return (
+                <button
+                  key={cat.value}
+                  className={`category-pill${active ? '' : ' category-pill--inactive'}`}
+                  onClick={() => handleToggleCategory(cat.value)}
+                >
+                  <span className="category-pill-dot" style={{ background: cat.color }} />
+                  {cat.label}
+                </button>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
       <div className="timeline-scroller" ref={scrollerRef}>
         <div className="timeline-row" style={{ height: containerH }}>
           <canvas ref={leftCanvasRef} className="grid-canvas"

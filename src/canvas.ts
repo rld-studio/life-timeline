@@ -86,6 +86,7 @@ export function drawGrid(
   today: Date,
   highlightYear: number | null,
   ts = 0,
+  activeCategories: Set<string> | null = null,
 ): void {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
@@ -127,7 +128,10 @@ export function drawGrid(
       if (yPx + cell > totalH - padBottom) break
 
       const iso  = fmtISO(date)
-      const evts = dayMap.get(iso)
+      const all  = dayMap.get(iso)
+      const evts = activeCategories
+        ? all?.filter(e => activeCategories.has(e.category))
+        : all
       let color  = baseColor
 
       if (evts && evts.length > 1) {
