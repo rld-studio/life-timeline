@@ -1,3 +1,6 @@
+import type { EventItem } from './types'
+import type { Category } from './categories'
+
 export async function uploadImage(file: File, eventId: string, role: string): Promise<{url: string; filename: string}> {
   const form = new FormData()
   form.append('eventId', eventId)
@@ -25,7 +28,7 @@ export async function deleteImage(url: string): Promise<void> {
 
 const LS_KEY = 'life-timeline-data'
 
-export async function saveEvents(events: object[], categories: object[]): Promise<void> {
+export async function saveEvents(events: EventItem[], categories: Category[]): Promise<void> {
   if (!events || events.length === 0) { console.warn('saveEvents: refusing to save empty events array'); return; }
   const data = { events, categories }
   localStorage.setItem(LS_KEY, JSON.stringify(data))
@@ -40,7 +43,7 @@ export async function saveEvents(events: object[], categories: object[]): Promis
   }
 }
 
-export async function loadEvents(): Promise<{ events: object[]; categories: object[] } | null> {
+export async function loadEvents(): Promise<{ events: EventItem[]; categories: Category[] } | null> {
   const raw = localStorage.getItem(LS_KEY) ?? localStorage.getItem('life-timeline-events')
   if (!raw) return null
   const parsed = JSON.parse(raw)

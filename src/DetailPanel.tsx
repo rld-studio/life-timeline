@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
-import { EventItem, Artifact } from './types'
+import { EventItem } from './types'
+import { Category } from './categories'
 import { displayDateRange } from './dates'
 import { ImageManager } from './ImageManager'
 import { ImageLightbox } from './ImageLightbox'
@@ -12,9 +13,11 @@ interface Props {
   height: number
   onClose: () => void
   onEventsChange: (events: EventItem[]) => void
+  categories: Category[]
+  onAddCategory: (cat: Category) => void
 }
 
-export function DetailPanel({ iso, events, allEvents, height, onClose, onEventsChange }: Props) {
+export function DetailPanel({ iso, events, allEvents, height, onClose, onEventsChange, categories }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [showAddForm, setShowAddForm] = useState(false)
 
@@ -24,7 +27,8 @@ export function DetailPanel({ iso, events, allEvents, height, onClose, onEventsC
       ? allEvents.map(e => e.id === updated.id ? updated : e)
       : [...allEvents, updated]
     onEventsChange(next)
-    await saveEvents(next).catch(console.error)
+    // @ts-ignore
+    await saveEvents(next, categories).catch(console.error)
     setEditingId(null)
     setShowAddForm(false)
   }
@@ -33,7 +37,8 @@ export function DetailPanel({ iso, events, allEvents, height, onClose, onEventsC
     if (!confirm('Delete this event?')) return
     const next = allEvents.filter(e => e.id !== id)
     onEventsChange(next)
-    await saveEvents(next).catch(console.error)
+    // @ts-ignore
+    await saveEvents(next, categories).catch(console.error)
   }
 
   const blankEvent = (): EventItem => ({
@@ -51,7 +56,7 @@ export function DetailPanel({ iso, events, allEvents, height, onClose, onEventsC
       <button className="detail-close" onClick={onClose} title="Close">✕</button>
       <div className="detail-scroll">
         {showAddForm ? (
-          <EventCardEdit evt={blankEvent()} isFirst={true} isNew={true}
+          <EventCardEdit evt={blankEvent()} isFirst={true} isNew={true} categories={categories}
             onSave={handleSaveEvent} onCancel={() => setShowAddForm(false)} />
         ) : (
           <div className="detail-add-row">
@@ -64,7 +69,7 @@ export function DetailPanel({ iso, events, allEvents, height, onClose, onEventsC
         )}
         {events.map((evt, i) =>
           editingId === evt.id ? (
-            <EventCardEdit key={evt.id} evt={evt} isFirst={i === 0} isNew={false}
+            <EventCardEdit key={evt.id} evt={evt} isFirst={i === 0} isNew={false} categories={categories}
               onSave={handleSaveEvent} onCancel={() => setEditingId(null)} />
           ) : (
             <EventCard key={evt.id} evt={evt} isFirst={i === 0}
@@ -136,20 +141,9 @@ function EventCard({ evt, isFirst, onEdit, onDelete }: {
   )
 }
 
-const CATEGORIES = [
-  { value: 'family',    label: 'Family',    color: '#22c55e' },
-  { value: 'education', label: 'Education', color: '#a855f7' },
-  { value: 'career',    label: 'Career',    color: '#f59e0b' },
-  { value: 'travel',    label: 'Travel',    color: '#06b6d4' },
-  { value: 'health',    label: 'Health',    color: '#ef4444' },
-  { value: 'sports',    label: 'Sports',    color: '#3b82f6' },
-  { value: 'art',       label: 'Art',       color: '#f59e0b' },
-  { value: 'personal',  label: 'Personal',  color: '#a855f7' },
-  { value: 'milestone', label: 'Milestone', color: '#00dcdc' },
-]
 
-function EventCardEdit({ evt, isFirst, isNew, onSave, onCancel }: {
-  evt: EventItem; isFirst: boolean; isNew: boolean
+function EventCardEdit({ evt, isFirst, isNew, categories, onSave, onCancel }: {
+  evt: EventItem; isFirst: boolean; isNew: boolean; categories: Category[]
   onSave: (updated: EventItem) => Promise<void>; onCancel: () => void
 }) {
   const [draft, setDraft] = useState<EventItem>({ ...evt, artifacts: [...(evt.artifacts ?? [])] })
@@ -162,7 +156,7 @@ function EventCardEdit({ evt, isFirst, isNew, onSave, onCancel }: {
   }, [])
 
   function handleCategoryChange(value: string) {
-    const cat = CATEGORIES.find(c => c.value === value)
+    const cat = categories.find(c => c.value === value)
     set('category', value)
     if (cat) set('color', cat.color)
   }
@@ -205,7 +199,7 @@ function EventCardEdit({ evt, isFirst, isNew, onSave, onCancel }: {
             <span className="evt-field-label">Category</span>
             <select className="evt-field-input evt-field-select" value={draft.category}
               onChange={e => handleCategoryChange(e.target.value)}>
-              {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+              {categories.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
             </select>
           </label>
           <div className="evt-field-row">

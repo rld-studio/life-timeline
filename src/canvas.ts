@@ -149,15 +149,15 @@ export function drawGrid(
 
     // Decade markers
     if (year % 10 === 0) {
-      const cx = x + cell / 2
-      const isCurrentDecade = year === Math.floor(currentYear / 10) * 10
-      const labelColor = isCurrentDecade ? '#00dcdc' : 'rgba(255,255,255,0.70)'
+      const cx = x + yearW / 2
 
       // Subtle vertical guide line
       ctx.fillStyle = 'rgba(255,255,255,0.05)'
       ctx.fillRect(x, padTop, 1, usableH)
 
-      // Label above grid
+      // Label above grid — highlight only if this decade year IS the current year
+      const decadeIsCurrentYear = year === currentYear
+      const labelColor = decadeIsCurrentYear ? '#00dcdc' : 'rgba(255,255,255,0.70)'
       ctx.fillStyle = labelColor
       ctx.font = `bold 9px "IBM Plex Mono", monospace`
       ctx.textAlign = 'center'
@@ -179,17 +179,51 @@ export function drawGrid(
     }
   }
 
-  // Today horizontal dashed line
+  // Current year label — drawn after the loop so it always sits on top of decade labels
+  const currentYearYi = currentYear - startYear
+  if (currentYearYi >= 0 && currentYearYi < totalYears) {
+    const cx = padLeft + currentYearYi * yearW + yearW / 2
+
+    // Vertical tick above the label
+    ctx.strokeStyle = '#00ffff'
+    ctx.lineWidth = 1.5
+    ctx.setLineDash([])
+    ctx.beginPath()
+    ctx.moveTo(cx, 0)
+    ctx.lineTo(cx, padTop - 18)
+    ctx.stroke()
+
+    // Year label — bright white so it pops against the dim decade labels
+    ctx.fillStyle = '#ffffff'
+    ctx.font = `bold 9px "IBM Plex Mono", monospace`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'alphabetic'
+    ctx.fillText(String(currentYear), cx, padTop - 14)
+
+    // Small triangle pointing down toward grid
+    const triW = 5, triH = 4
+    const tipY = padTop - 8
+    ctx.fillStyle = '#00ffff'
+    ctx.beginPath()
+    ctx.moveTo(cx - triW / 2, tipY - triH)
+    ctx.lineTo(cx + triW / 2, tipY - triH)
+    ctx.lineTo(cx, tipY)
+    ctx.closePath()
+    ctx.fill()
+
+    ctx.textAlign = 'left'
+  }
+
+  // Today horizontal line — single pixel, subtle
   const todayDoy = dayOfYear(today)
   const todayY   = padTop + todayDoy * cell + cell / 2
-  ctx.strokeStyle = 'rgba(0, 220, 220, 0.45)'
+  ctx.strokeStyle = 'rgba(0, 220, 220, 0.2)'
   ctx.lineWidth   = 1
-  ctx.setLineDash([3, 5])
+  ctx.setLineDash([])
   ctx.beginPath()
   ctx.moveTo(0, todayY)
   ctx.lineTo(totalW, todayY)
   ctx.stroke()
-  ctx.setLineDash([])
 }
 
 // ── Hit testing ───────────────────────────────────────────────────────────────

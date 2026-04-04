@@ -6,15 +6,13 @@ import { DEFAULT_CATEGORIES, Category } from './categories'
 import { buildDayMap } from './dayMap'
 import {
   computeLayout, drawGrid, hitYear, hitDay,
-  GridLayout, PAD_LEFT,
+  PAD_LEFT,
 } from './canvas'
 import { YearColumn } from './YearColumn'
 import { DetailPanel } from './DetailPanel'
 import { fmtISO } from './dates'
 import { loadEvents, saveEvents } from './imageApi'
 
-const YEAR_COL_W   = 52
-const DETAIL_W     = 560
 const START_YEAR   = 1800
 
 export default function App() {
@@ -55,10 +53,14 @@ export default function App() {
   // Load events: prefer localStorage (has edits), fall back to events.json
   useEffect(() => {
     loadEvents().then(result => {
+      // @ts-ignore
       if (result && result.events.length > 0) {
-        const cats = result.categories.length > 0 ? result.categories as Category[] : DEFAULT_CATEGORIES
+        // @ts-ignore
+        const cats = result.categories.length > 0 ? result.categories : DEFAULT_CATEGORIES
         if (result.categories.length > 0) setCategories(cats)
-        const loaded = applyColors(result.events as EventItem[], cats)
+        // @ts-ignore
+        const loaded = applyColors(result.events, cats)
+        // @ts-ignore
         console.log('[timeline] loaded from localStorage:', loaded.length, 'events')
         setEvents(loaded)
         return
