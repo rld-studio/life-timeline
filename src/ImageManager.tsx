@@ -18,7 +18,8 @@ export function ImageManager({ eventId, eventColor, coverImage, artifacts, onCov
   const galleryInputRef = useRef<HTMLInputElement>(null)
   const [coverUploading,   setCoverUploading]   = useState(false)
   const [galleryUploading, setGalleryUploading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error,            setError]            = useState<string | null>(null)
+  const [coverBust,        setCoverBust]        = useState(0)
 
   const galleryImages  = artifacts.filter(a => a.type === 'image')
   const otherArtifacts = artifacts.filter(a => a.type !== 'image')
@@ -28,7 +29,9 @@ export function ImageManager({ eventId, eventColor, coverImage, artifacts, onCov
     try {
       if (coverImage) await deleteImage(coverImage).catch(() => {})
       const { url } = await uploadImage(file, eventId, 'cover')
+      console.log('[upload] cover URL returned:', url)
       onCoverChange(url)
+      setCoverBust(Date.now())
     } catch (e: any) { setError(e.message) }
     finally { setCoverUploading(false) }
   }
@@ -81,7 +84,7 @@ export function ImageManager({ eventId, eventColor, coverImage, artifacts, onCov
         <h3 className="img-section-title">Cover Photo</h3>
         {coverImage ? (
           <div className="img-cover-preview">
-            <img src={coverImage} alt="Cover" className="img-cover-thumb" />
+            <img src={coverBust ? `${coverImage}?t=${coverBust}` : coverImage} alt="Cover" className="img-cover-thumb" />
             <div className="img-cover-actions">
               <button className="img-btn img-btn--primary" onClick={() => coverInputRef.current?.click()} disabled={coverUploading}>
                 {coverUploading ? 'Uploading…' : '↺ Replace'}
