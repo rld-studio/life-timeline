@@ -11,6 +11,7 @@ import {
 } from './canvas'
 import { YearColumn } from './YearColumn'
 import { DetailPanel } from './DetailPanel'
+import { EventListPanel } from './EventListPanel'
 import { fmtISO } from './dates'
 import { loadEvents, saveEvents } from './imageApi'
 
@@ -199,7 +200,19 @@ export default function App() {
     })
   }, [])
 
-  const [filterOpen, setFilterOpen] = useState(false)
+  const [filterOpen,   setFilterOpen]   = useState(false)
+  const [listOpen,     setListOpen]     = useState(false)
+
+  const handleJumpToDate = useCallback((iso: string) => {
+    const yr = parseInt(iso.slice(0, 4))
+    const scroller = scrollerRef.current
+    if (!scroller) return
+    const yearIdx = yr - startYear
+    const x = PAD_LEFT + yearIdx * leftLayout.yearW + leftLayout.yearW / 2
+    scroller.scrollLeft = x - scroller.clientWidth / 2
+    setExpandedYear(yr)
+    setSelectedISO(iso)
+  }, [startYear, leftLayout])
 
   const handleSelectDay  = useCallback((iso: string) => setSelectedISO(iso), [])
   const handleClose      = useCallback(() => { setExpandedYear(null); setSelectedISO(null) }, [])
@@ -214,6 +227,11 @@ export default function App() {
           onClick={() => setFilterOpen(o => !o)}
           title="Filter categories"
         >⊞</button>
+        <button
+          className={`list-toggle${listOpen ? ' list-toggle--open' : ''}`}
+          onClick={() => setListOpen(o => !o)}
+          title="All events"
+        >☰</button>
         {filterOpen && (
           <div className="filter-dropdown">
             <div className="filter-section-label">CATEGORIES</div>
@@ -241,6 +259,16 @@ export default function App() {
           </div>
         )}
       </div>
+
+      {listOpen && (
+        <EventListPanel
+          events={events}
+          categories={categories}
+          activeCategories={activeCategories}
+          onClose={() => setListOpen(false)}
+          onJumpToDate={handleJumpToDate}
+        />
+      )}
 
       <div className="timeline-scroller" ref={scrollerRef}>
         <div className="timeline-row" style={{ height: containerH }}>
