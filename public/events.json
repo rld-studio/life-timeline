@@ -383,6 +383,335 @@
         "Cable Ace Award",
         "awards"
       ]
+    },
+    {
+      "id": "evt-2026-04-10-1775500796051",
+      "title": "Morris Island Fossil Hunt",
+      "start_date": "2026-03-08",
+      "end_date": "2026-03-08",
+      "category": "travel",
+      "color": "#06b6d4",
+      "artifacts": [
+        {
+          "type": "text",
+          "content": "An amazing outing with tour guide Chuck Gainey to Morris Island."
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501079536.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501080070.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501080931.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501081744.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501082761.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501083447.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501084000.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501084478.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501085171.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501085884.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501204160.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501204891.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501205496.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-04-10-1775500796051/img-1775501206142.jpeg",
+          "caption": ""
+        }
+      ],
+      "location": "Charleston, South Carolina",
+      "cover_image": "/images/evt-2026-04-10-1775500796051/cover.jpeg",
+      "tags": [
+        "fossils",
+        "shark teeth",
+        "beach",
+        "Island Cove Charters"
+      ]
+    },
+    {
+      "id": "evt-2026-03-08-1775501569408",
+      "title": "The Gathering - Future Gallery",
+      "start_date": "2026-03-06",
+      "end_date": "2026-04-10",
+      "category": "art",
+      "color": "#e879f9",
+      "artifacts": [
+        {
+          "type": "text",
+          "content": "3 art pieces, The Source, Lava Lamp Odyssey and Wheezy's Wall selected for The Gathering show. At least 100 artist included, art curated by gallery owner Eugene Byrd."
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501805597.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501806423.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501807254.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501808131.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501809127.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501809950.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501810810.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501811692.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501812653.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501813294.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501814173.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501815024.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-03-08-1775501569408/img-1775501815569.jpeg",
+          "caption": ""
+        }
+      ],
+      "location": "Atlanta, GA",
+      "cover_image": "/images/evt-2026-03-08-1775501569408/cover.jpeg",
+      "tags": [
+        "exhibition",
+        "painting",
+        "gallery"
+      ]
+    },
+    {
+      "id": "evt-2026-02-08-1775502792395",
+      "title": "High Museum Visit",
+      "start_date": "2026-02-08",
+      "end_date": "2026-02-08",
+      "category": "family",
+      "color": "#22c55e",
+      "artifacts": [
+        {
+          "type": "text",
+          "content": "Visit to High Museum for the last day of the Viktor&Rolf: Fashion Statements exhibit. "
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-02-08-1775502792395/img-1775502950653.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-02-08-1775502792395/img-1775502951296.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-02-08-1775502792395/img-1775502952003.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-02-08-1775502792395/img-1775502952615.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-02-08-1775502792395/img-1775502953388.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-02-08-1775502792395/img-1775502954081.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-02-08-1775502792395/img-1775502954816.jpeg",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "url": "/images/evt-2026-02-08-1775502792395/img-1775502955534.jpeg",
+          "caption": ""
+        }
+      ],
+      "location": "Atlanta, GA",
+      "cover_image": "/images/evt-2026-02-08-1775502792395/cover.jpeg",
+      "tags": [
+        "art",
+        "museum",
+        "fashion"
+      ]
+    },
+    {
+      "id": "evt-1996-02-17-1775582526046",
+      "title": "Bulls vs Hawks",
+      "start_date": "1996-02-14",
+      "end_date": "1996-02-14",
+      "category": "sports",
+      "color": "#3b82f6",
+      "artifacts": [
+        {
+          "type": "text",
+          "content": "I went to at least 3 Jordan games vs the hawks in the 90's and early 2000's. Tricia went with me to one on Valentine's day and I think this photo she took at that game. There's a whole story about me getting into an altercation with Spudd Webb after the game and being saved by Dennis Rodman. Maybe I'll tell and attach that story one day. 2 of the games I saw were when Jordan was with the Bulls, one was a playoff game I believe when he was with the Wizards. That ticket was given to me by Bonnie Holland who got it directly from Christian Laettner whom she was helping manage his finances."
+        }
+      ],
+      "location": "Atlanta, GA",
+      "cover_image": "/images/evt-1996-02-17-1775582526046/cover.jpeg",
+      "tags": []
+    },
+    {
+      "id": "evt-2026-04-09-1775929256318",
+      "title": "Masters Thursday",
+      "start_date": "2026-04-09",
+      "end_date": "2026-04-09",
+      "category": "sports",
+      "color": "#3b82f6",
+      "artifacts": [
+        {
+          "type": "text",
+          "content": "Attended the first round of the Masters with Mark Beckwith..."
+        }
+      ],
+      "location": "Augusta, GA",
+      "cover_image": "/images/evt-2026-04-09-1775929256318/cover.png",
+      "tags": [
+        "bucket list",
+        "golf",
+        "travel"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "value": "family",
+      "label": "Family",
+      "color": "#22c55e"
+    },
+    {
+      "value": "education",
+      "label": "Education",
+      "color": "#a855f7"
+    },
+    {
+      "value": "career",
+      "label": "Career",
+      "color": "#f59e0b"
+    },
+    {
+      "value": "travel",
+      "label": "Travel",
+      "color": "#06b6d4"
+    },
+    {
+      "value": "health",
+      "label": "Health",
+      "color": "#ef4444"
+    },
+    {
+      "value": "sports",
+      "label": "Sports",
+      "color": "#3b82f6"
+    },
+    {
+      "value": "art",
+      "label": "Art",
+      "color": "#e879f9"
+    },
+    {
+      "value": "personal",
+      "label": "Personal",
+      "color": "#ec4899"
+    },
+    {
+      "value": "milestone",
+      "label": "Milestone",
+      "color": "#00dcdc"
+    },
+    {
+      "value": "faith",
+      "label": "Faith",
+      "color": "#fbbf24"
     }
   ]
 }

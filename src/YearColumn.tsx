@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { EventItem } from './types'
 import { daysInMonth, fmtISO, MONTHS } from './dates'
 import { pickDayColor } from './dayMap'
@@ -45,7 +45,7 @@ export function YearColumn({ year, selectedISO, dayMap, onSelectDay, height }: P
         {months.map(({ m, label, days }) => (
           <div key={m} className="ycol-month">
             <div className="ycol-month-label">{label}</div>
-            {days.map(({ iso, date, evts, doy }) => {
+            {days.map(({ iso, evts, doy }) => {
               const isSelected  = iso === selectedISO
               const hasEvents   = evts.length > 0
               const hasMultiple = evts.length > 1
